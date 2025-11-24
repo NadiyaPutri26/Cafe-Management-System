@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <persistence-unit name="Cafe_Management_SystemPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>cafe.management.system.Pembayaran</class>
+    <class>cafe.management.system.Customers</class>
+    <class>cafe.management.system.Penjualan</class>
+    <class>cafe.management.system.Waiters</class>
+    <class>cafe.management.system.Vale</class>
+    <class>cafe.management.system.Produk</class>
+    <class>cafe.management.system.Kasir</class>
+    <class>cafe.management.system.JenisPembayaran</class>
+    <class>cafe.management.system.Membership</class>
+    <class>cafe.management.system.Akun</class>
+    <class>cafe.management.system.Waiters_1</class>
+    <class>cafe.management.system.JenisPembayaran_1</class>
+    <class>cafe.management.system.Kasir_1</class>
+    <class>cafe.management.system.Penjualan_1</class>
+    <class>cafe.management.system.Membership_1</class>
+    <class>cafe.management.system.Customers_1</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/ManajemenCafe"/>
+      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="1234"/>
+    </properties>
+  </persistence-unit>
+</persistence>
