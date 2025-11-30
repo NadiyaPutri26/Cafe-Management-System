@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="936ef315-2fc2-4fdd-bd49-ec01a983b823">
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+    p.id_penjualan AS bill_id,
+    k.nama_kasir,
+    w.nama_waiters,
+    c.nama_customers,
+    m.poin_member,
+    p.tanggal_penjualan AS tanggal_transaksi,
+    pr.nama_produk,
+    p.total_harga,
+    jp.nama_jenis AS jenis_pembayaran,
+    pb.status_bayar
+
+FROM penjualan p
+LEFT JOIN pembayaran pb ON pb.id_penjualan = p.id_penjualan
+LEFT JOIN kasir k ON k.id_kasir = pb.id_kasir
+LEFT JOIN waiters w ON w.id_waiters = p.id_waiters
+LEFT JOIN customers c ON c.id_customers = p.id_customers
+LEFT JOIN membership m ON m.id_customers = c.id_customers
+LEFT JOIN jenis_pembayaran jp ON jp.id_jenis = pb.id_jenis
+LEFT JOIN dipesan_dalam dd ON dd.id_penjualan = p.id_penjualan
+LEFT JOIN produk pr ON pr.id_produk = dd.id_produk;
+]]>
+	</queryString>
+	<field name="bill_id" class="java.lang.String"/>
+	<field name="nama_kasir" class="java.lang.String"/>
+	<field name="nama_waiters" class="java.lang.String"/>
+	<field name="nama_customers" class="java.lang.String"/>
+	<field name="poin_member" class="java.lang.Integer"/>
+	<field name="tanggal_transaksi" class="java.sql.Timestamp"/>
+	<field name="nama_produk" class="java.lang.String"/>
+	<field name="total_harga" class="java.lang.Integer"/>
+	<field name="jenis_pembayaran" class="java.lang.String"/>
+	<field name="status_bayar" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="164" height="126" uuid="59891027-5fb2-4fb0-9111-a2066b797fac"/>
+				<imageExpression><![CDATA["coffee.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="270" y="0" width="263" height="62" uuid="6088de81-f41c-41b4-bdef-39e7e526bd5f"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Coffee Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="303" y="62" width="196" height="22" uuid="394b0173-b586-44b2-824f-4d45ac018cb6"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Coffee SubTitle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="94" width="383" height="42" uuid="d2269f31-0167-4b01-b667-cfb9dd71f478"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor purus gravida arcu aliquam mattis. Donec et nulla libero, ut varius massa. Nulla sed turpis elit. Etiam aliquet mauris a ligula hendrerit in auctor leo lobortis.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="633" y="-73" width="219" height="209" uuid="534f920e-5598-434b-99a6-121bb583dd04"/>
+				<imageExpression><![CDATA["coffee_stain.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="9d7831d6-63f1-454f-9ce1-6fc4be6f1eeb"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="80" height="15" forecolor="#736343" uuid="4d23cfb2-f1ca-4023-9656-f2d3bc96dbe3"/>
+				<text><![CDATA[bill_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="80" y="0" width="80" height="15" forecolor="#736343" uuid="1e917b4f-08c4-462c-bdd6-41f9bbc29c76"/>
+				<text><![CDATA[nama_kasir]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="160" y="0" width="80" height="15" forecolor="#736343" uuid="dcef6f42-499b-4122-80b8-806360b9561c"/>
+				<text><![CDATA[nama_waiters]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="240" y="0" width="80" height="15" forecolor="#736343" uuid="0c344553-47eb-413a-957b-514218024963"/>
+				<text><![CDATA[nama_customers]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="320" y="0" width="80" height="15" forecolor="#736343" uuid="4947cf30-0d83-414d-8f1f-70a776b981df"/>
+				<text><![CDATA[poin_member]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="400" y="0" width="80" height="15" forecolor="#736343" uuid="62a73b16-b52a-4acd-b7ee-54741552f4bb"/>
+				<text><![CDATA[tanggal_transaksi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="480" y="0" width="80" height="15" forecolor="#736343" uuid="2f826cd9-de8b-40c3-9acc-7211a114ba2b"/>
+				<text><![CDATA[nama_produk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="560" y="0" width="80" height="15" forecolor="#736343" uuid="9e5c511a-fe31-4eec-969b-beb083d5afc2"/>
+				<text><![CDATA[total_harga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="640" y="0" width="80" height="15" forecolor="#736343" uuid="e0d6a48b-7a10-4527-ae7e-8688198b7f98"/>
+				<text><![CDATA[jenis_pembayaran]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="720" y="0" width="80" height="15" forecolor="#736343" uuid="1c644b38-8445-4807-a38d-c90285bfe3a8"/>
+				<text><![CDATA[status_bayar]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="a098e813-f9d4-468f-8bf0-f97005ed9d22"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="0" width="80" height="15" uuid="a0e90227-7039-49a8-a988-54ca5e741239"/>
+					<textFieldExpression><![CDATA[$F{bill_id}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="80" y="0" width="80" height="15" uuid="2848741b-1fa2-4c5e-941b-d807b7b58389"/>
+					<textFieldExpression><![CDATA[$F{nama_kasir}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="160" y="0" width="80" height="15" uuid="0ef76112-09e8-4649-b2eb-ae509e094eab"/>
+					<textFieldExpression><![CDATA[$F{nama_waiters}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="240" y="0" width="80" height="15" uuid="e3061644-2945-483b-a187-99657fa37264"/>
+					<textFieldExpression><![CDATA[$F{nama_customers}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="320" y="0" width="80" height="15" uuid="a6c04be2-fd10-4766-a8f6-2b51deb03655"/>
+					<textFieldExpression><![CDATA[$F{poin_member}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="400" y="0" width="80" height="15" uuid="69d8918b-c1a9-459d-af2f-b0d6f0d2e1b4"/>
+					<textFieldExpression><![CDATA[$F{tanggal_transaksi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="480" y="0" width="80" height="15" uuid="af5acc6a-2d35-428d-a0fe-284eda89911f"/>
+					<textFieldExpression><![CDATA[$F{nama_produk}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="560" y="0" width="80" height="15" uuid="803ca264-9548-45cd-bdf3-d9e7fa520153"/>
+					<textFieldExpression><![CDATA[$F{total_harga}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="640" y="0" width="80" height="15" uuid="fe535e40-b484-4100-b9cb-ec88e89c5d74"/>
+					<textFieldExpression><![CDATA[$F{jenis_pembayaran}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="720" y="0" width="80" height="15" uuid="e7a8ddf2-a926-4303-97a8-e0a6b32e8469"/>
+					<textFieldExpression><![CDATA[$F{status_bayar}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="ef9fcae4-960f-4398-b5d0-7a2717a0c459"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="be1bef80-f881-48c6-9c96-c8a60613c8ee"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343" uuid="cb4ca02f-0591-4cfc-a727-b77930cbefe6"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343" uuid="ad3ea5fc-7045-4eca-9469-d45f6d47a8c8"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="7f1b810b-6217-4c52-8ed5-632432c69ced"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
