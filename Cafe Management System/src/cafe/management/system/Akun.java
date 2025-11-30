@@ -141,5 +141,19 @@ public class Akun implements Serializable {
     public String toString() {
         return "cafe.management.system.Akun[ username=" + username + " ]";
     }
-    
+      @Override
+    public String toString() {
+        return "cafe.management.system.Akun[ username=" + username + " ]";
+    }
+
+    @Column(name = "verified")
+    private Boolean verified;
+
+    public Boolean getVerified() {
+        return verified;
+    }
+
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
+    }
 }
