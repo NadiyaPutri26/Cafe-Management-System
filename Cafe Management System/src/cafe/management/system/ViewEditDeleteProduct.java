@@ -66,7 +66,7 @@ public class ViewEditDeleteProduct extends javax.swing.JFrame {
                 if (data.getTanggalMasukProduk() != null) {
                     tanggalFormatted = sdf.format(data.getTanggalMasukProduk());
                 }
-                Object[] baris = new Object[6];
+                Object[] baris = new Object[4];
                 baris[0] = data.getIdProduk();
                 baris[1] = data.getNamaProduk();
                 baris[2] = data.getHargaProduk();

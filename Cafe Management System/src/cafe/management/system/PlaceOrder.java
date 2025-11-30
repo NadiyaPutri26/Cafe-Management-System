@@ -2,13 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package cafe.management.system;
+package cafeManagementSystem;
 
+import cafe.management.system.Customers;
+import cafe.management.system.JenisPembayaran;
+import cafe.management.system.Kasir;
+import cafe.management.system.Membership;
+import cafe.management.system.Pembayaran;
+import cafe.management.system.Penjualan;
+import cafe.management.system.Produk;
+import cafe.management.system.Waiters;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -93,13 +102,15 @@ public class PlaceOrder extends javax.swing.JFrame {
         TablePesanan = new javax.swing.JTable();
         LblGrandTotal = new javax.swing.JLabel();
         BtnPrintBill = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         LblTotal = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(TxtIDPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 112, 60, 30));
+        getContentPane().add(TxtIDPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, 60, 30));
 
         BtnSearchKasir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnSearchKasir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
@@ -109,7 +120,7 @@ public class PlaceOrder extends javax.swing.JFrame {
                 BtnSearchKasirActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnSearchKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, -1, 30));
+        getContentPane().add(BtnSearchKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, -1, 30));
 
         BtnSearchWaiters.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnSearchWaiters.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
@@ -119,31 +130,31 @@ public class PlaceOrder extends javax.swing.JFrame {
                 BtnSearchWaitersActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnSearchWaiters, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, -1, 30));
-        getContentPane().add(TxtIDWaiters, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 110, 30));
+        getContentPane().add(BtnSearchWaiters, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, -1, 30));
+        getContentPane().add(TxtIDWaiters, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 110, 30));
 
         LblIDWaiters.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblIDWaiters.setForeground(new java.awt.Color(255, 255, 255));
         LblIDWaiters.setText("ID Waiters");
-        getContentPane().add(LblIDWaiters, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
-        getContentPane().add(TxtIDKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 110, 30));
+        getContentPane().add(LblIDWaiters, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
+        getContentPane().add(TxtIDKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 110, 30));
 
         LblIDKasir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblIDKasir.setForeground(new java.awt.Color(255, 255, 255));
         LblIDKasir.setText("ID Kasir");
-        getContentPane().add(LblIDKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
-        getContentPane().add(TxtNamaKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 250, 30));
+        getContentPane().add(LblIDKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
+        getContentPane().add(TxtNamaKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 250, 30));
 
         LblNamaKasir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblNamaKasir.setForeground(new java.awt.Color(255, 255, 255));
         LblNamaKasir.setText("Nama Kasir");
-        getContentPane().add(LblNamaKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
-        getContentPane().add(TxtIDMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 490, 120, 30));
+        getContentPane().add(LblNamaKasir, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, -1));
+        getContentPane().add(TxtIDMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 450, 120, 30));
 
         LblIDMember.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblIDMember.setForeground(new java.awt.Color(255, 255, 255));
         LblIDMember.setText("ID Membership");
-        getContentPane().add(LblIDMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 460, -1, -1));
+        getContentPane().add(LblIDMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 420, -1, -1));
 
         BtnCari.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
@@ -153,8 +164,8 @@ public class PlaceOrder extends javax.swing.JFrame {
                 BtnCariActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 490, -1, 30));
-        getContentPane().add(TxtIDBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 90, -1));
+        getContentPane().add(BtnCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 450, -1, 30));
+        getContentPane().add(TxtIDBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 90, -1));
 
         BtnSearchProduk.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnSearchProduk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
@@ -164,34 +175,38 @@ public class PlaceOrder extends javax.swing.JFrame {
                 BtnSearchProdukActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnSearchProduk, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 110, -1, -1));
-        getContentPane().add(DtcTransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, 250, 30));
+        getContentPane().add(BtnSearchProduk, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, -1, -1));
+        getContentPane().add(DtcTransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 250, 30));
 
         TxtIDProduk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtIDProdukActionPerformed(evt);
             }
         });
-        getContentPane().add(TxtIDProduk, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 110, 160, 30));
+        getContentPane().add(TxtIDProduk, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 70, 160, 30));
 
         LblIDProduk.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblIDProduk.setForeground(new java.awt.Color(255, 255, 255));
         LblIDProduk.setText("ID Produk");
-        getContentPane().add(LblIDProduk, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, -1, -1));
+        getContentPane().add(LblIDProduk, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, -1, -1));
 
-        TxtStatusPembayaran.setText("Belum Lunas");
-        getContentPane().add(TxtStatusPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, 100, 30));
-        getContentPane().add(TxtPoin, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 560, 250, 30));
+        TxtStatusPembayaran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtStatusPembayaranActionPerformed(evt);
+            }
+        });
+        getContentPane().add(TxtStatusPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 150, 100, 30));
+        getContentPane().add(TxtPoin, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 520, 250, 30));
 
         LblPoinMember.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblPoinMember.setForeground(new java.awt.Color(255, 255, 255));
         LblPoinMember.setText("Poin Membership");
-        getContentPane().add(LblPoinMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 530, -1, -1));
+        getContentPane().add(LblPoinMember, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 490, -1, -1));
 
         LblStatusPembayaran.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblStatusPembayaran.setForeground(new java.awt.Color(255, 255, 255));
         LblStatusPembayaran.setText("Status Pembayaran");
-        getContentPane().add(LblStatusPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 190, -1, -1));
+        getContentPane().add(LblStatusPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 150, -1, -1));
 
         BtnCariPembayaran.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnCariPembayaran.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
@@ -201,29 +216,29 @@ public class PlaceOrder extends javax.swing.JFrame {
                 BtnCariPembayaranActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnCariPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, -1, -1));
+        getContentPane().add(BtnCariPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, -1, -1));
 
         LblJenisPembayaran.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblJenisPembayaran.setForeground(new java.awt.Color(255, 255, 255));
         LblJenisPembayaran.setText("Jenis Pembayaran");
-        getContentPane().add(LblJenisPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, -1, 30));
+        getContentPane().add(LblJenisPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, -1, 30));
 
         LblTglTransaksi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblTglTransaksi.setForeground(new java.awt.Color(255, 255, 255));
         LblTglTransaksi.setText("Tanggal Transaksi");
-        getContentPane().add(LblTglTransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, -1, 20));
+        getContentPane().add(LblTglTransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, 20));
 
         TxtNamaWaiters.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtNamaWaitersActionPerformed(evt);
             }
         });
-        getContentPane().add(TxtNamaWaiters, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 250, 30));
+        getContentPane().add(TxtNamaWaiters, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 250, 30));
 
         LblNamaWaiters.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblNamaWaiters.setForeground(new java.awt.Color(255, 255, 255));
         LblNamaWaiters.setText("Nama Waiters");
-        getContentPane().add(LblNamaWaiters, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 120, 20));
+        getContentPane().add(LblNamaWaiters, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 120, 20));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -234,18 +249,18 @@ public class PlaceOrder extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Bil ID:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 48, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 48, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Customer Details:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, -1, -1));
 
         LblIDCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblIDCustomer.setForeground(new java.awt.Color(255, 255, 255));
         LblIDCustomer.setText("ID Customers");
-        getContentPane().add(LblIDCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, 100, -1));
-        getContentPane().add(TxtJnsPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 150, 100, 30));
+        getContentPane().add(LblIDCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 100, -1));
+        getContentPane().add(TxtJnsPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 110, 100, 30));
 
         TxtIDCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TxtIDCustomer.addActionListener(new java.awt.event.ActionListener() {
@@ -253,15 +268,15 @@ public class PlaceOrder extends javax.swing.JFrame {
                 TxtIDCustomerActionPerformed(evt);
             }
         });
-        getContentPane().add(TxtIDCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 350, 251, -1));
+        getContentPane().add(TxtIDCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 310, 251, -1));
 
         TxtNamaCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        getContentPane().add(TxtNamaCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 420, 251, -1));
+        getContentPane().add(TxtNamaCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, 251, -1));
 
         LblNamaCustomer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblNamaCustomer.setForeground(new java.awt.Color(255, 255, 255));
         LblNamaCustomer.setText("Nama Customers");
-        getContentPane().add(LblNamaCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, 133, -1));
+        getContentPane().add(LblNamaCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 350, 133, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -274,7 +289,7 @@ public class PlaceOrder extends javax.swing.JFrame {
         LblNamaProduk.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblNamaProduk.setForeground(new java.awt.Color(255, 255, 255));
         LblNamaProduk.setText("Nama Produk");
-        getContentPane().add(LblNamaProduk, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 150, 110, -1));
+        getContentPane().add(LblNamaProduk, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, 110, -1));
 
         TxtNamaProduk.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TxtNamaProduk.addActionListener(new java.awt.event.ActionListener() {
@@ -282,26 +297,26 @@ public class PlaceOrder extends javax.swing.JFrame {
                 TxtNamaProdukActionPerformed(evt);
             }
         });
-        getContentPane().add(TxtNamaProduk, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 180, 251, -1));
+        getContentPane().add(TxtNamaProduk, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 140, 251, -1));
 
         LblSubTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblSubTotal.setForeground(new java.awt.Color(255, 255, 255));
         LblSubTotal.setText("SubTotal");
-        getContentPane().add(LblSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 150, 90, -1));
+        getContentPane().add(LblSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 110, 90, -1));
 
         TxtHarga.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        getContentPane().add(TxtHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 180, 251, -1));
+        getContentPane().add(TxtHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 140, 251, -1));
 
         LblJumlah.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblJumlah.setForeground(new java.awt.Color(255, 255, 255));
         LblJumlah.setText("Jumlah");
-        getContentPane().add(LblJumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 210, 94, -1));
+        getContentPane().add(LblJumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 170, 94, -1));
 
         LblTotalHarga.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblTotalHarga.setForeground(new java.awt.Color(255, 255, 255));
         LblTotalHarga.setText("Total Harga");
-        getContentPane().add(LblTotalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 210, 100, -1));
-        getContentPane().add(SpJumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 240, 251, -1));
+        getContentPane().add(LblTotalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 170, 100, -1));
+        getContentPane().add(SpJumlah, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 200, 251, -1));
 
         TxtTotalHarga.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TxtTotalHarga.addActionListener(new java.awt.event.ActionListener() {
@@ -309,7 +324,7 @@ public class PlaceOrder extends javax.swing.JFrame {
                 TxtTotalHargaActionPerformed(evt);
             }
         });
-        getContentPane().add(TxtTotalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 240, 251, -1));
+        getContentPane().add(TxtTotalHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 200, 251, -1));
 
         BtnClear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clear.png"))); // NOI18N
@@ -319,7 +334,7 @@ public class PlaceOrder extends javax.swing.JFrame {
                 BtnClearActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, -1, -1));
+        getContentPane().add(BtnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 250, -1, -1));
 
         BtnKeranjang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnKeranjang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add to cart.png"))); // NOI18N
@@ -329,24 +344,24 @@ public class PlaceOrder extends javax.swing.JFrame {
                 BtnKeranjangActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnKeranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 290, -1, -1));
+        getContentPane().add(BtnKeranjang, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 250, -1, -1));
 
         TablePesanan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nama Produk", "SubTotal", "Jumlah Produk", "Total Harga"
+                "ID Produk", "Nama Produk", "SubTotal", "Jumlah Produk", "Total Harga"
             }
         ));
         jScrollPane2.setViewportView(TablePesanan);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 338, 572, 320));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 300, 572, 320));
 
         LblGrandTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblGrandTotal.setForeground(new java.awt.Color(255, 255, 255));
         LblGrandTotal.setText("Grand Total: Rp.");
-        getContentPane().add(LblGrandTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 691, 120, 20));
+        getContentPane().add(LblGrandTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 650, 120, 20));
 
         BtnPrintBill.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnPrintBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/generate bill & print.png"))); // NOI18N
@@ -356,7 +371,13 @@ public class PlaceOrder extends javax.swing.JFrame {
                 BtnPrintBillActionPerformed(evt);
             }
         });
-        getContentPane().add(BtnPrintBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(1107, 688, -1, -1));
+        getContentPane().add(BtnPrintBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 650, -1, -1));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 250, 260));
 
         LblTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LblTotal.setForeground(new java.awt.Color(255, 255, 255));
@@ -366,7 +387,7 @@ public class PlaceOrder extends javax.swing.JFrame {
                 LblTotalMouseClicked(evt);
             }
         });
-        getContentPane().add(LblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 690, 70, 20));
+        getContentPane().add(LblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 650, 70, 20));
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/full-page-background.PNG"))); // NOI18N
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -408,6 +429,55 @@ public class PlaceOrder extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TxtTotalHargaActionPerformed
 
+    private void cetakBill() {
+
+        String idBill = TxtIDBill.getText();
+        String idCustomer = TxtIDCustomer.getText();
+        String namaCustomer = TxtNamaCustomer.getText();
+        String membership = TxtPoin.getText();
+        String total = TxtTotalHarga.getText();
+        String bayar = LblTotal.getText();
+
+        jTextArea1.setText(""); // Kosongkan dulu
+
+        StringBuilder bill = new StringBuilder();
+
+        bill.append("=====================================\n");
+        bill.append("                CAFE XYZ\n");
+        bill.append("=====================================\n");
+        bill.append("ID BILL       : ").append(idBill).append("\n");
+        bill.append("ID CUSTOMER   : ").append(idCustomer).append("\n");
+        bill.append("Nama Customer : ").append(namaCustomer).append("\n");
+        bill.append("Membership    : ").append(membership).append("\n");
+        bill.append("-------------------------------------\n");
+        bill.append("Items:\n");
+
+        // ----- Ambil daftar item dari JTable ----
+        for (int i = 0; i < TablePesanan.getRowCount(); i++) {
+            String id = TablePesanan.getValueAt(i, 1).toString();
+            String namaItem = TablePesanan.getValueAt(i, 2).toString();
+            String subtotal = TablePesanan.getValueAt(i, 3).toString();
+            String qty = TablePesanan.getValueAt(i, 4).toString();
+            String harga = TablePesanan.getValueAt(i, 5).toString();
+
+            bill.append(namaItem)
+                    .append("   x").append(qty)
+                    .append("   @").append(harga)
+                    .append("   = ").append(subtotal)
+                    .append("\n");
+        }
+
+        bill.append("-------------------------------------\n");
+        bill.append("Total Harga  : ").append(total).append("\n");
+        bill.append("Bayar        : ").append(bayar).append("\n");
+        bill.append("=====================================\n");
+        bill.append("       TERIMA KASIH SUDAH BELANJA\n");
+        bill.append("=====================================\n");
+
+        jTextArea1.setText(bill.toString());
+    }
+
+
     private void BtnPrintBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintBillActionPerformed
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Cafe_Management_SystemPU");
         EntityManager em = emf.createEntityManager();
@@ -415,6 +485,7 @@ public class PlaceOrder extends javax.swing.JFrame {
         try {
             em.getTransaction().begin();
 
+            //id Kasir
             String idKasir = TxtIDKasir.getText();
             if (idKasir == null || idKasir.equals("--")) {
                 String LastId = "";
@@ -427,6 +498,7 @@ public class PlaceOrder extends javax.swing.JFrame {
                 }
             }
 
+            //id Jenis pembayaran
             String idJenis = TxtIDPembayaran.getText();
             if (idJenis == null || idJenis.equals("--")) {
                 String LastId = "";
@@ -439,12 +511,13 @@ public class PlaceOrder extends javax.swing.JFrame {
                 }
             }
 
+            //id penjualan
             String idBill = TxtIDBill.getText();
             if (idBill == null || idBill.equals("--")) {
                 String lastId = "";
                 try {
                     lastId = em.createQuery(
-                            "SELECT b.idBill FROM Bill b ORDER BY b.idBill DESC", String.class)
+                            "SELECT p.idPenjualan FROM Penjualan p ORDER BY p.idPenjualan DESC", String.class)
                             .setMaxResults(1)
                             .getSingleResult();
                 } catch (Exception e) {
@@ -473,6 +546,7 @@ public class PlaceOrder extends javax.swing.JFrame {
             p.setIdPenjualan(idBill);
             p.setTanggalPenjualan(DtcTransaksi.getDate());
             p.setTotalHarga(grandTotal);
+            p.setProdukCollection(cart);
 
             String inputCustomerId = TxtIDCustomer.getText();
             Customers c = null;
@@ -498,45 +572,35 @@ public class PlaceOrder extends javax.swing.JFrame {
             }
             p.setIdCustomers(c);
 
-            // Perbaikan pada bagian penentuan Waiters
-            String idWaitersInput = TxtIDWaiters.getText(); // Gunakan TxtIDWaiters
+            String idWaitersInput = TxtIDWaiters.getText();
             if (idWaitersInput != null && !idWaitersInput.trim().isEmpty()) {
-                Waiters w = em.find(Waiters.class, idWaitersInput.trim()); // Cari Waiters berdasarkan ID
-
-                if (w == null) {
-                    // Jika tidak ditemukan berdasarkan ID, coba cari berdasarkan Nama (optional)
-                    String namaWaiters = TxtNamaWaiters.getText();
-                    if (namaWaiters != null && !namaWaiters.trim().isEmpty()) {
-                        try {
-                            java.util.List<Waiters> found = em.createQuery(
-                                    "SELECT w FROM Waiters w WHERE w.namaWaiters = :name", Waiters.class)
-                                    .setParameter("name", namaWaiters.trim())
-                                    .setMaxResults(1)
-                                    .getResultList();
-                            if (!found.isEmpty()) {
-                                w = found.get(0);
-                            }
-                        } catch (Exception qex) {
-                            // Abaikan
-                        }
-                    }
-                }
+                Waiters w = em.find(Waiters.class, idWaitersInput.trim());
 
                 if (w != null) {
                     p.setIdWaiters(w);
                 } else {
-                    // ... Tambahkan logika jika Waiter wajib diisi
-                    System.out.println("Waiter tidak ditemukan untuk input ID/Nama: " + idWaitersInput + "/" + TxtNamaWaiters.getText());
+                    System.out.println("Waiter tidak ditemukan untuk input ID: " + idWaitersInput + "/" + TxtNamaWaiters.getText());
+                }
+            }
+
+            String idKasirInput = TxtIDKasir.getText();
+            if (idKasirInput != null && !idKasirInput.trim().isEmpty()) {
+                Kasir k = em.find(Kasir.class, idKasirInput.trim());
+
+                if (k != null) {
+                    p.setIdKasir(k);
+                } else {
+                    System.out.println("Kasir tidak ditemukan untuk input ID: " + idWaitersInput + "/" + TxtNamaKasir.getText());
                 }
             }
 
             em.persist(p);
 
-            Kasir k = new Kasir();
-
             Pembayaran pay = new Pembayaran();
             pay.setIdPembayaran("PB" + idBill);
             pay.setIdPenjualan(p);
+            pay.setIdJenis(em.find(JenisPembayaran.class, TxtIDPembayaran.getText()));
+            pay.setIdKasir(em.find(Kasir.class, TxtIDKasir.getText()));
             pay.setTanggalBayar(new Date());
             String totalText = LblTotal.getText();
             if (totalText == null || totalText.trim().isEmpty()) {
@@ -545,24 +609,22 @@ public class PlaceOrder extends javax.swing.JFrame {
             BigInteger totalBayar = new BigInteger(totalText.trim());
             pay.setTotalBayar(totalBayar);
             pay.setStatusBayar(TxtStatusPembayaran.getText() == null ? "" : TxtStatusPembayaran.getText().trim());
-            pay.setIdKasir(em.find(Kasir.class, TxtIDKasir.getText())); // Tambahkan ini
-            pay.setIdJenis(em.find(JenisPembayaran.class, TxtIDPembayaran.getText())); // Tambahkan ini
 
             em.persist(pay);
 
             em.getTransaction().commit();
             JOptionPane.showMessageDialog(this, "Transaksi berhasil disimpan!");
+            cart.clear(); // kosongkan keranjang
+            ((DefaultTableModel) TablePesanan.getModel()).setRowCount(0);
+            cetakBill();
         } catch (Exception ex) {
-            try {
-                if (em.getTransaction().isActive()) {
-                    em.getTransaction().rollback();
-                }
-            } catch (Exception rbEx) {
-                // ignore
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            } else {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error saat menyimpan transaksi: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error saat menyimpan transaksi: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
+
             if (em.isOpen()) {
                 em.close();
             }
@@ -572,6 +634,8 @@ public class PlaceOrder extends javax.swing.JFrame {
         }
         bersih1();
     }//GEN-LAST:event_BtnPrintBillActionPerformed
+
+    private List<Produk> cart = new ArrayList<>();
 
     private void bersih1() {
         TxtIDBill.setText("");
@@ -639,13 +703,14 @@ public class PlaceOrder extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) TablePesanan.getModel();
 
         for (int i = 0; i < model.getRowCount(); i++) {
-            int totalItem = Integer.parseInt(model.getValueAt(i, 3).toString());
+            int totalItem = Integer.parseInt(model.getValueAt(i, 4).toString());
             grandTotal += totalItem;
         }
         LblTotal.setText(String.valueOf(grandTotal));
     }
 
     private void BtnKeranjangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKeranjangActionPerformed
+        String id = TxtIDProduk.getText();
         String namaProduk = TxtNamaProduk.getText();
         String harga = TxtHarga.getText();
         String jumlah = SpJumlah.getValue().toString();
@@ -658,6 +723,7 @@ public class PlaceOrder extends javax.swing.JFrame {
 
         DefaultTableModel model = (DefaultTableModel) TablePesanan.getModel();
         model.addRow(new Object[]{
+            id,
             namaProduk,
             harga,
             jumlah,
@@ -665,6 +731,11 @@ public class PlaceOrder extends javax.swing.JFrame {
         });
 
         hitungGrandTotal();
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Cafe_Management_SystemPU");
+        EntityManager em = emf.createEntityManager();
+        Produk p = em.find(Produk.class, id); // cari produk dari database
+        cart.add(p);
 
         TxtIDProduk.setText("");
         TxtNamaProduk.setText("");
@@ -801,13 +872,14 @@ public class PlaceOrder extends javax.swing.JFrame {
     private void BtnCariPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariPembayaranActionPerformed
         if (TxtIDPembayaran.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Isi Terlebih Dahulu");
+            return;
         } else {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("Cafe_Management_SystemPU");
             EntityManager em = emf.createEntityManager();
 
             em.getTransaction().begin();
 
-            String user = TxtIDPembayaran.getText();
+            String user = TxtIDPembayaran.getText().trim();
             JenisPembayaran y = em.find(JenisPembayaran.class, user);
 
             if (y == null) {
@@ -817,18 +889,14 @@ public class PlaceOrder extends javax.swing.JFrame {
                 TxtStatusPembayaran.setText("Belum Lunas");
             } else {
                 TxtJnsPembayaran.setText(y.getNamaJenis());
-                if (!TxtJnsPembayaran.getText().equals("")) {
-                    try {
-                        Pembayaran x = em.createQuery(
-                                "SELECT p FROM Pembayaran p WHERE p.idJenis.idJenis = :id", Pembayaran.class)
-                                .setParameter("id", user)
-                                .getSingleResult();
+                TxtStatusPembayaran.setText("Lunas");
+                Pembayaran pembayaran = new Pembayaran();
+                pembayaran.setIdJenis(y); 
+                pembayaran.setTanggalBayar(new Date());
 
-                        TxtStatusPembayaran.setText(x.getStatusBayar());
-                    } catch (NoResultException e) {
-                        TxtStatusPembayaran.setText("Belum Ada Pembayaran");
-                    }
-                }
+//                pembayaran.setTotalBayar(BigInteger.valueOf(NORMAL));
+//                pembayaran.setIdKasir(idKasir);
+//                pembayaran.setIdPenjualan(penjualan);
                 TxtIDPembayaran.setEditable(false);
                 TxtJnsPembayaran.requestFocus();
             }
@@ -837,6 +905,10 @@ public class PlaceOrder extends javax.swing.JFrame {
             emf.close();
         }
     }//GEN-LAST:event_BtnCariPembayaranActionPerformed
+
+    private void TxtStatusPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtStatusPembayaranActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtStatusPembayaranActionPerformed
 
     /**
      * @param args the command line arguments
@@ -924,6 +996,8 @@ public class PlaceOrder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
